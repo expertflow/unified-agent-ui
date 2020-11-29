@@ -1,0 +1,309 @@
+/* You can add global styles to this file, and also import other style files */
+@import "src/app/shared/globalVariables";
+@import '~material-design-icons/iconfont/material-icons.css';
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Light'), local('Roboto-light'),
+  url('./assets/fonts/roboto/Roboto-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Regular'), local('Roboto-Regular'),
+  url('./assets/fonts/roboto/Roboto-Regular.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Medium'), local('Roboto-Medium'),
+  url('./assets/fonts/roboto/Roboto-Medium.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+  url('./assets/fonts/roboto/Roboto-Bold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+}
+html,body{
+  height: 100%;
+  font-family: "Roboto", Arial, sans-serif !important;
+  background: transparent !important;
+  font-weight: normal;
+}
+$white-color: #fff;
+
+button{
+  outline: none !important;
+}
+
+//Loading Area
+.loading-area {
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+//main-tab-area
+
+mat-tab-group.chat-tab-area {
+  flex-direction: row;
+  //border: 5px solid #E2E2E2;
+
+  .mat-tab-header-pagination {
+    display: none !important;
+  }
+
+  .mat-tab-body-wrapper {
+    width: calc(100% - 60px);
+    border-left: 5px solid #E2E2E2;
+  }
+
+  .mat-tab-header {
+    width: 60px;
+    background: $white-color;
+    .mat-ink-bar{
+      display: none !important;
+    }
+    .mat-tab-labels {
+      display: block;
+
+      .mat-tab-label {
+        padding: 0;
+        width: 50px;
+        display: block !important;
+        min-width: inherit;
+        margin: 5px auto;
+        background: transparent;
+        box-shadow: inset 1.5px 0 0 #F3F6F8, inset 0 1.5px 0 #F3F6F8, inset 0 -1.5px 0 #F3F6F8, inset -1.5px 0 0 #F3F6F8;
+        height: 50px;
+        text-align: center;
+        opacity: 1;
+        border-radius: 5px;
+
+        &.mat-tab-label-active{
+          background: #C4E9F6 !important;
+          box-shadow: inset 1.5px 0 0 #3FABF3, inset 0 1.5px 0 #3FABF3, inset 0 -1.5px 0 #3FABF3, inset -1.5px 0 0 #3FABF3;
+
+          svg circle:nth-child(3) {
+            fill: white;
+          }
+        }
+
+        .get-events{
+          width: 100%;
+          display: inline-block;
+          position: absolute;
+          left: 0;
+          top: 0;
+
+          svg {
+            height: 50px !important;
+            width: 50px !important;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+
+// Right Tabs
+.mat-drawer-container.mat-sidenav-container.mat-drawer-container-has-open {
+  width: 300px;
+  display: inherit;
+  transition: all .3s;
+  transform: none !important;
+  min-width: 300px;
+  border-left: 5px solid #e2e2e2;
+}
+.mat-drawer-container.mat-sidenav-container {
+  width: 0;
+  transition: all .3s;
+  min-width: 0;
+  margin-right: 56px;
+  height: 100%;
+}
+.mat-drawer-inner-container{
+  overflow: auto !important;
+}
+
+mat-sidenav.mat-drawer.mat-sidenav {
+  width: 100%;
+  transform: none !important;
+  transition: all .3s;
+  visibility: visible !important;
+}
+
+//Logout menu Style
+.mat-menu-content {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.logged-out-trigger{
+  margin: 0;
+}
+.mat-menu-panel{
+  min-height: 30px !important;
+}
+
+//right-bar
+.right-drag-content {
+  .mat-expansion-panel-body {
+    padding: 0;
+    border-top-width: 0 !important;
+    border: 1px solid $header-gray-color;
+  }
+}
+
+//Channels Icon
+.channel-icon{
+  &.web, &.web-channel{
+   background: $web-color !important;
+
+  }
+  &.facebook, &.facebook-channel{
+    background: $facebook-color !important;
+  }
+  &.sms{
+    background: $sms-color !important;
+  }
+  &.whatsapp, &.whatsapp-channel{
+    background: $whatsapp-color !important;
+  }
+  &.viber{
+    background: $viber-color !important;
+  }
+}
+.panel-divider {
+  mat-expansion-panel {
+    box-shadow: none !important;
+    border: 1px solid #F1F1F1;
+  }
+}
+snack-bar-container.err-class {
+  background: red;
+  color: white;
+  text-align: center;
+}
+
+snack-bar-container.succ-class {
+  background: green;
+  color: white;
+  text-align: center;
+
+}
+
+.mat-simple-snackbar span {
+  margin: auto;
+  text-align: center;
+}
+
+//Expansion panel
+.instruction-content {
+  mat-expansion-panel-header.mat-expanded {
+    background: #F5F5F5 !important;
+    border-radius: 0;
+    margin-bottom: 10px;
+  }
+  .mat-expansion-panel-spacing {
+    margin-top: -1px;
+  }
+
+  .history-detail.inner-detail-history {
+    mat-expansion-panel-header:hover{
+      background: #FBFBFB;
+    }
+    .mat-expanded {
+      background: #FBFBFB;
+    }
+  }
+}
+
+.list-group-item {
+  .mat-button-wrapper {
+padding: 0 !important;
+  }
+}
+
+.wrap-trigger{
+  background: #f1f1f1;
+  color: #707070;
+  padding: 0 5px !important;
+  height: 38px !important;
+  line-height: 38px !important;
+  z-index: 2;
+  &:hover{
+    background: lighten($dark-gray-color, 80%) !important;
+  }
+  span{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .icon-trigger {
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    border-radius: 100%;
+    display: inline-block;
+    text-align: center;
+    line-height: 28px;
+  }
+}
+
+//Dialog Globally
+
+.mat-dialog-container{
+  padding: 0 !important;
+}
+.wrap-dialog{
+  width: 100% !important;
+  max-width: 580px !important;
+}
+.dialog-header {
+  background: #F0F4F8;
+  height: 38px;
+  padding: 0 10px;
+  position: relative;
+
+  h4{
+    font-size: 14px;
+    color: $blue-text-color;
+    line-height: 36px;
+  }
+  button {
+    position: absolute;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid $blue-text-color;;
+    min-width: inherit;
+    text-align: center;
+    padding: 0;
+    border-radius: 100%;
+    top: 4px;
+    mat-icon{
+      line-height: 20px;
+      font-size: 18px;
+    }
+  }
+}
