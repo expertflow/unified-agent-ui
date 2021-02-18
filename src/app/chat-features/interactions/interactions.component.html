@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-4 customer-showcase">
       <h3 matTooltipPosition="right" class="customer-highlight">
-        {{messages[0].title | slice :0 :2 |uppercase}}
+        {{messages[0].title | slice :0 :2}}
 
         <span class="channel-icon {{customer.info.channel}}">
           <img *ngIf="channelUrl" src="{{channelUrl}}">
@@ -516,7 +516,7 @@
       <div class="chat-message" [ngClass]="{'agent-message': con.title == 'raza'}">
         <div class="profile-pic">
           <div class="active-channel channel-icon {{customer.info.channel}}"><img width="20" src="../assets/images/web.svg"></div>
-          <div class="profile-pic-area user-img">{{con.title | slice :0 :2 |uppercase}}</div>
+          <div class="profile-pic-area user-img">{{con.title | slice :0 :2}}</div>
         </div>
         <div class="chat-message-content ">
           <p>{{con.message}}</p>
@@ -531,16 +531,16 @@
         <div class="chat-intents" *ngIf="con.intents && con.showIntent==true">
           <div class="intents-inner">
             <p *ngFor="let intent of con.intents"
-               [ngClass]="{'selected_intent': intent.name == message.selectedIntent?.intentName}">
+              >
               {{intent}}
 <!--              <b>{{intent.confidence.toFixed(2)}}</b>-->
               <button mat-mini-fab class="canned-trigger edit-trigger"
-                      (click)="message=action.message || action.name">
+                     >
                 <i class="material-icons">
                   edit
                 </i>
               </button>
-              <button mat-mini-fab class="canned-trigger send-suggestion" (click)="message=action.message || action.name" >
+              <button mat-mini-fab class="canned-trigger send-suggestion" >
                 <i class="material-icons">
                   send
                 </i>
@@ -623,11 +623,11 @@
             <textarea (click)="onTextAreaClick()"  [(ngModel)]="message" (keyup)="onKey($event)"
                       name="message"  (change)="textChanged($event)" [matAutocomplete]="auto"  matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" id="messageTextarea"
               class="resize-none" #replyInput name="message" placeholder="Type a message here."></textarea>
-            <mat-autocomplete #auto="matAutocomplete" class="suggested-answer answer-autocomplete"  (closed)="closeSelection()" (opened)="displaySuggestions()">
+            <mat-autocomplete #auto="matAutocomplete" class="suggested-answer answer-autocomplete"  >
 
 
               <div class="suggested-content" #mainScreen [ngClass]="{'content-display': cannedTabOpen || displaySuggestionsArea}" >
-                <div class="suggested-tab suggested-tabs-update" *ngIf="quickReplies" [ngClass]="{'animate-content': displaySuggestionsAnimation}">
+                <div class="suggested-tab suggested-tabs-update" *ngIf="quickReplies" >
                   <ng-container *ngFor="let action of actions | LockFilter: message">
                     <mat-option [value]="action?.message || action?.name" (click)="message=action?.message || action?.name" *ngIf="action.message != undefined || action.name != undefined">
                       {{action.message || action.name}}
@@ -636,7 +636,7 @@
                           edit
                         </i>
                       </button>
-                      <button mat-mini-fab class="canned-trigger send-suggestion" (click)="sendAutoMsg(action.message || action.name)" >
+                      <button mat-mini-fab class="canned-trigger send-suggestion" >
                         <i class="material-icons">
                           send
                         </i>
@@ -677,13 +677,13 @@
                                 {{cMsg.count}}
 
                                 <button mat-mini-fab color="primary" class="canned-trigger edit-trigger"
-                                        (click)="message=action.message || action.name">
+                                        >
                                   <i class="material-icons">
                                     edit
                                   </i>
                                 </button>
                                 <button mat-mini-fab color="primary" class="canned-trigger send-suggestion"
-                                        (click)="sendAutoMsg(action.message || action.name)">
+                                        >
                                   <i class="material-icons">
                                     send
                                   </i>
@@ -711,7 +711,7 @@
                             edit
                           </i>
                         </button>
-                        <button mat-mini-fab class="canned-trigger send-suggestion" (click)="sendAutoMsg(action.message || action.name)" >
+                        <button mat-mini-fab class="canned-trigger send-suggestion" >
                           <i class="material-icons">
                             send
                           </i>
