@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as io from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { appConfigService } from './appConfig.service';
 import { cacheService } from './cache.service';
 import { sharedService } from './shared.service';
@@ -13,6 +13,11 @@ export class socketService {
 
     socket: any;
     uri: string;
+    conversations: any = [];
+
+    private _conversationsListener: BehaviorSubject<any> = new BehaviorSubject([]);
+
+    public readonly conversationsListener: Observable<any> = this._conversationsListener.asObservable();
 
     constructor(private _appConfigService: appConfigService, private _cacheService: cacheService, private _sharedService: sharedService) {
     }
@@ -20,6 +25,8 @@ export class socketService {
 
     connectToSocket() {
         this.uri = this._appConfigService.config.SOCKET_URL;
+
+        console.log("username------ " + this._cacheService.agent.details.username)
 
         this.socket = io.connect(this.uri, {
             query: { token: this._cacheService.agent.details.access_token, agentId: this._cacheService.agent.details.username }
@@ -30,6 +37,7 @@ export class socketService {
         this.listen('agentPresence').subscribe((res: any) => {
             console.log(res);
             this._cacheService.agent.presence = res;
+            this._sharedService.serviceChangeMessage({ msg: 'stateChanged', data: null });
         });
 
         this.listen('errors').subscribe((res: any) => {
@@ -40,6 +48,12 @@ export class socketService {
             console.log("taskRequest ", res);
             this.triggerNewChatRequest(res);
         });
+
+        this.listen('onMessage').subscribe((res: any) => {
+            res.message = JSON.parse(res.message);
+            this.onMessageHandler(res);
+            console.log("onMessage parse s", res);
+        })
     }
 
     listen(eventName: string) {
@@ -58,5 +72,24 @@ export class socketService {
     triggerNewChatRequest(data) {
         this._sharedService.serviceChangeMessage({ msg: 'openRequestHeader', data: data });
     }
+
+
+    onMessageHandler(res) {
+        let sameTopicIdObj = this.conversations.find((e) => {
+            return e.topicId == res.topicId
+        });
+
+        if (sameTopicIdObj) {
+            sameTopicIdObj.messages.push(res.message);
+            if (res.message.header.sender.type != 'agent') { ++sameTopicIdObj.unReadCount; }
+        } else {
+            this.conversations.push({ topicId: res.topicId, messages: [res.message], unReadCount: 1 });
+        }
+
+        this._sharedService.serviceChangeMessage({ msg: 'onMessage', data: null });
+        this._conversationsListener.next(this.conversations);
+
+    }
+
 
 }

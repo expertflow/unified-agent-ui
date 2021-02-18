@@ -17,6 +17,17 @@ export class sharedService {
         this.serviceMessageSource.next(data);
     }
 
+    getIndexFromTopicId(topicId, array) {
+        let index = array.findIndex((e) => {
+          return e.topicId == topicId
+        });
+        return index;
+      }
+
+      spliceArray(index, array) {
+        array.splice(index, 1);
+      }
+
     Interceptor(e, res) {
 
         if (res == 'err') {
@@ -24,6 +35,10 @@ export class sharedService {
             if (e.statusCode == 401) {
 
                 this._snackbarService.open('UNAUTHORIZED USER', 'err');
+
+            } else if (e.statusCode == 412) {
+
+                this._snackbarService.open('Precondition failed', 'err');
 
             } else { this._snackbarService.open('Something went wrong', 'err') }
         }

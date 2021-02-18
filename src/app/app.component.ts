@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { appConfigService } from './services/appConfig.service';
 import { sharedService } from './services/shared.service';
+import { socketService } from './services/socket.service';
 
 
 @Component({
@@ -11,21 +13,18 @@ import { sharedService } from './services/shared.service';
 export class AppComponent implements OnInit {
 
   title = 'unified-agent-gadget';
+  requests = [{name:"farhan",
+  channel: 'web'}];
 
   currentRoute: string;
-  requestHeaderState: boolean = false;
-  requestHeaderData;
 
   constructor(private _router: Router, private _sharedService: sharedService) {
 
     this._sharedService.serviceCurrentMessage.subscribe((e) => {
 
-      if (e.msg == 'openRequestHeader') {
-        this.requestHeaderState = true;
-        this.requestHeaderData = e.data;
-      }
-      console.log("i am called ", e)
-
+      // if (e.msg == 'openRequestHeader') {
+      //   this.requests.push(e.data);
+      // }
     })
 
   }
@@ -40,8 +39,15 @@ export class AppComponent implements OnInit {
       });
   }
 
-  requestHeaderEvents(requestHeaderState) {
-    this.requestHeaderState = requestHeaderState;
+  requestHeaderEvents(topicId) {
+
+    this.removeRequestFromRequestArray(topicId);
+  }
+
+
+  removeRequestFromRequestArray(topicId) {
+    let index = this._sharedService.getIndexFromTopicId(topicId, this.requests);
+    this._sharedService.spliceArray(index, this.requests);
   }
 
 }

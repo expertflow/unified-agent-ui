@@ -11,23 +11,49 @@ import { socketService } from 'src/app/services/socket.service';
 export class ChatsComponent implements OnInit {
 
   conversations = [{
-    conversation: [
+    messages: [
       {
         title: 'farhan',
-        message: 'Hello How are you today?'
+        message: 'Hello How are you today?',
+        showIntent: false,
+        intents: [
+          'Share number where I can call in emergency situations.',
+          'Share number where I can call in emergency situations.',
+          'Share number where I can call in emergency situations.',
+      ]
       },
       {
         title: 'farhan',
-        message: 'Share number where I can call in emergency situations.'
+        message: 'Share number where I can call in emergency situations.',
+        showIntent: false,
+        intents: [
+          'Share number where I can call in emergency situations.',
+          'Share number where I can call in emergency situations.',
+          'Share number where I can call in emergency situations.'
+        ]
       },
       {
         title: 'farhan',
-        message: 'Hi. Please share the email ID for support team.'
+        message: 'Hi. Please share the email ID for support team.',
+        showIntent: false,
+        intents: [
+          'Share number where I can call in emergency situations.',
+          'Share number where I can call in emergency situations.',
+          'Share number where I can call in emergency situations.'
+        ]
+      },
+      {
+        title: 'raza',
+        message: 'hello'
+      },
+      {
+        title: 'raza',
+        message: 'how are you'
       }
     ]
   },
   {
-    conversation: [
+    messages: [
       {
         title: 'raza',
         message: 'Share number where I can call in emergency situations.'
@@ -35,20 +61,37 @@ export class ChatsComponent implements OnInit {
       {
         title: 'raza',
         message: 'Hi. Please share the email ID for support team.'
+      },
+      {
+        title: 'raza',
+        message: 'hello 12'
+      },
+      {
+        title: 'raza',
+        message: 'how are you 12'
       }
     ]
   }
 
   ];
 
-  activeChat: boolean = true;
+  isBarOPened = false;
 
-  constructor(private _socketService: socketService) {
-    this._socketService.connectToSocket();
+  constructor() {
+
   }
 
   ngOnInit() {
   }
 
+  currentTabIndex;
+  onTabChange(index) {
+    console.log("parent called " + index);
+    this.currentTabIndex = index;
 
+  }
+
+  eventFromChild(data) {
+    this.isBarOPened = data;
+  }
 }

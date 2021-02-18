@@ -28,15 +28,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this._router.navigate(['customers']);
-    // this._httpService.login(this.loginForm.value).subscribe((e) => {
-    //
-    //   this._router.navigate(['customers']);
-    //   console.log("this is login resp ", e.data);
-    //   this._cacheService.agent.details = e.data;
-    //
-    // }, (error) => {
-    //   this._sharedService.Interceptor(error.error, 'err')
-    // })
+    this._httpService.login(this.loginForm.value).subscribe((e) => {
+
+      this._router.navigate(['customers']);
+      console.log("this is login resp ", e.data);
+      this._cacheService.agent.details = e.data;
+
+    }, (error) => {
+      this._sharedService.Interceptor(error.error, 'err')
+    })
   }
 }
